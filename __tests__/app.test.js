@@ -17,4 +17,18 @@ describe('app routes', () => {
   afterAll(() => {
     return mongoose.connection.close();
   });
+
+  it('should be able to post a new user', () => {
+    return request(app)
+      .post('/api/v1/auth/signup')
+      .send({ email: 'test@test.test', password: 'password' })
+      .then(res => {
+        expect(res.header['set-cookie'][0]).toEqual(expect.stringContaining('session='));
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          email: 'test@test.test',
+          __v: 0
+        });
+      });
+  });
 });
