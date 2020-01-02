@@ -33,7 +33,7 @@ describe('app routes', () => {
       });
   });
   it('can login a user with correct email and password', async() => {
-    const user = await User.create({
+    await User.create({
       email: 'test@test.test',
       password: 'password'
     });
